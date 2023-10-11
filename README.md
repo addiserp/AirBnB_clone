@@ -165,4 +165,4 @@ The recognizable commands by the interpreter are the following:
 
 Mikias Gedlu | Email: [addiserp System Solutions](mailto:addiserp@gmail.com) 
 
-BRYAN ASEGA | Github: [brayanasega](mailto:brayanasega@gmail.com)
+BRYAN ASEGA | Github: [brayanasega](mailto:Almasibryan7@gmail.com)
