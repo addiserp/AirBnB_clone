@@ -5,6 +5,7 @@ It defines Base for all the classes in the entire AirBnb project.
 
 from datetime import datetime
 from uuid import uuid4
+import models
 
 
 class BaseModel():
@@ -45,6 +46,7 @@ class BaseModel():
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.STORAGE.new(self)
 
     def __str__(self):
         """
@@ -61,6 +63,7 @@ class BaseModel():
         - save to serialized file
         """
         self.updated_at = datetime.now()
+        models.STORAGE.save()
 
     def to_dict(self):
         """
