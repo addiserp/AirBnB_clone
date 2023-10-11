@@ -3,9 +3,14 @@
 It is a Class for file_storage serializes and deserializes JSON types
 '''
 
-
-import json
 from models.base_model import BaseModel
+import json
+from models.place import Place
+from models.review import Review
+from models.user import User
+from models.city import City
+from models.amenity import Amenity
+from models.state import State
 
 
 class FileStorage:
@@ -27,7 +32,9 @@ class FileStorage:
 
     __file_path = 'airbnbfile.json'
     __objects = {}
-    class_dict = {"BaseModel": BaseModel}
+    class_dict = {"BaseModel": BaseModel, "Amenity": Amenity,
+                  "City": City, "Review": Review, "User": User,
+                  "Place": Place, "State": State}
 
     def all(self):
 
