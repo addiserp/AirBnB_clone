@@ -94,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
                 obj = eval(my_list[0])()
             else:
                 obj = eval(my_list[0])(**kwargs)
-                models.storage.new(obj)
+                models.STORAGE.new(obj)
             print(obj.id)
             obj.save()
 
@@ -108,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
         Display the string rep of a class instance of a given id.
         """
         argl = parse(arg)
-        objdict = models.storage.all()
+        objdict = models.STORAGE.all()
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
@@ -125,7 +125,7 @@ class HBNBCommand(cmd.Cmd):
         Retrieve the number of instances of a given class."""
         argl = parse(arg)
         count = 0
-        for obj in models.storage.all().values():
+        for obj in models.STORAGE.all().values():
             if argl[0] == obj.__class__.__name__:
                 count += 1
         print(count)
@@ -134,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Delete a class instance of a given id."""
         argl = parse(arg)
-        objdict = models.storage.all()
+        objdict = models.STORAGE.all()
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
@@ -145,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         else:
             del objdict["{}.{}".format(argl[0], argl[1])]
-            models.storage.save()
+            models.STORAGE.save()
 
     def do_all(self, arg):
         """
@@ -167,7 +167,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Update an instance id by adding or updating a given attribute"""
         argl = parse(arg)
-        objdict = models.storage.all()
+        objdict = models.STORAGE.all()
 
         if len(argl) == 0:
             print("** class name missing **")
@@ -207,29 +207,29 @@ class HBNBCommand(cmd.Cmd):
                     obj.__dict__[k] = valtype(v)
                 else:
                     obj.__dict__[k] = v
-        models.storage.save()
+        models.STORAGE.save()
 
     def emptyline(self):
         """Do nothing upon receiving an empty line."""
         pass
 
-    def parse(arg):
-        """Function to parse args"""
-        curly_braces = re.search(r"\{(.*?)\}", arg)
-        brackets = re.search(r"\[(.*?)\]", arg)
-        if curly_braces is None:
-            if brackets is None:
-                return [i.strip(",") for i in split(arg)]
-            else:
-                lexer = split(arg[:brackets.span()[0]])
-                retl = [i.strip(",") for i in lexer]
-                retl.append(brackets.group())
-                return retl
+def parse(arg):
+    """Function to parse args"""
+    curly_braces = re.search(r"\{(.*?)\}", arg)
+    brackets = re.search(r"\[(.*?)\]", arg)
+    if curly_braces is None:
+        if brackets is None:
+            return [i.strip(",") for i in split(arg)]
         else:
-            lexer = split(arg[:curly_braces.span()[0]])
+            lexer = split(arg[:brackets.span()[0]])
             retl = [i.strip(",") for i in lexer]
-            retl.append(curly_braces.group())
+            retl.append(brackets.group())
             return retl
+    else:
+        lexer = split(arg[:curly_braces.span()[0]])
+        retl = [i.strip(",") for i in lexer]
+        retl.append(curly_braces.group())
+        return retl
 
 
 if __name__ == '__main__':
