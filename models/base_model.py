@@ -74,3 +74,9 @@ class BaseModel():
         dic["updated_at"] = self.updated_at.isoformat()
         dic["__class__"] = self.__class__.__name__
         return dic
+
+    def __repr__(self):
+        """
+        returns string repr
+        """
+        return (self.__str__())
