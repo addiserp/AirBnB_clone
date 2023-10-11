@@ -19,25 +19,6 @@ from models.review import Review
 from models.place import Place
 
 
-def parse(arg):
-    """Function to parse args"""
-    curly_braces = re.search(r"\{(.*?)\}", arg)
-    brackets = re.search(r"\[(.*?)\]", arg)
-    if curly_braces is None:
-        if brackets is None:
-            return [i.strip(",") for i in split(arg)]
-        else:
-            lexer = split(arg[:brackets.span()[0]])
-            retl = [i.strip(",") for i in lexer]
-            retl.append(brackets.group())
-            return retl
-    else:
-        lexer = split(arg[:curly_braces.span()[0]])
-        retl = [i.strip(",") for i in lexer]
-        retl.append(curly_braces.group())
-        return retl
-
-
 class HBNBCommand(cmd.Cmd):
 
     """
@@ -57,10 +38,6 @@ class HBNBCommand(cmd.Cmd):
         "Amenity",
         "Review"
     }
-
-    def emptyline(self):
-        """Do nothing upon receiving an empty line."""
-        pass
 
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
@@ -143,6 +120,16 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
+    def do_count(self, arg):
+        """
+        Retrieve the number of instances of a given class."""
+        argl = parse(arg)
+        count = 0
+        for obj in models.storage.all().values():
+            if argl[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
+
     def do_destroy(self, arg):
         """
         Delete a class instance of a given id."""
@@ -175,16 +162,6 @@ class HBNBCommand(cmd.Cmd):
                 elif len(argl) == 0:
                     objl.append(obj.__str__())
             print(objl)
-
-    def do_count(self, arg):
-        """
-        Retrieve the number of instances of a given class."""
-        argl = parse(arg)
-        count = 0
-        for obj in models.storage.all().values():
-            if argl[0] == obj.__class__.__name__:
-                count += 1
-        print(count)
 
     def do_update(self, arg):
         """
@@ -231,6 +208,28 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
         models.storage.save()
+
+    def emptyline(self):
+        """Do nothing upon receiving an empty line."""
+        pass
+
+    def parse(arg):
+        """Function to parse args"""
+        curly_braces = re.search(r"\{(.*?)\}", arg)
+        brackets = re.search(r"\[(.*?)\]", arg)
+        if curly_braces is None:
+            if brackets is None:
+                return [i.strip(",") for i in split(arg)]
+            else:
+                lexer = split(arg[:brackets.span()[0]])
+                retl = [i.strip(",") for i in lexer]
+                retl.append(brackets.group())
+                return retl
+        else:
+            lexer = split(arg[:curly_braces.span()[0]])
+            retl = [i.strip(",") for i in lexer]
+            retl.append(curly_braces.group())
+            return retl
 
 
 if __name__ == '__main__':
