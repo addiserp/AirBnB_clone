@@ -28,6 +28,7 @@ class FileStorage:
     __file_path = 'airbnbfile.json'
     __objects = {}
     class_dict = {"BaseModel": BaseModel}
+
     def all(self):
 
         '''
