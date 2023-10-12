@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def default(self, arg):
-        """Default behavior for cmd module when input is invalid"""
+        """Default response for cmd module when input is wrong/invalid"""
         argdict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -61,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, arg):
-        """Quit command to exit the program."""
+        """to exit the program use Quit command."""
         return True
 
     def do_EOF(self, arg):
@@ -71,7 +71,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Create a new class instance and save it & print id
+        to Create a new class instance and save it &
+        print id use do_create.
         """
         try:
             if not line:
@@ -105,7 +106,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        Display the string rep of a class instance of a given id.
+        To display the string rep of a class instance
+        of a given id use do_show.
         """
         argl = parse(arg)
         objdict = models.STORAGE.all()
@@ -122,7 +124,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """
-        Retrieve the number of instances of a given class."""
+        To Retrieve the number of instances of a given class.
+        use do_count
+        """
         argl = parse(arg)
         count = 0
         for obj in models.STORAGE.all().values():
@@ -132,7 +136,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """
-        Delete a class instance of a given id."""
+        To Delete a class instance of a given id.
+        use do_deltee
+        """
         argl = parse(arg)
         objdict = models.STORAGE.all()
         if len(argl) == 0:
@@ -149,7 +155,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """
-        Display string rep of all instances of a given class
+        To Display string rep of all instances of a given class
+        use do_all
         """
         argl = parse(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
@@ -165,7 +172,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """
-        Update an instance id by adding or updating a given attribute"""
+        To Update an instance id by adding or updating
+        a given attribute, use do_update
+        """
         argl = parse(arg)
         objdict = models.STORAGE.all()
 
@@ -213,8 +222,11 @@ class HBNBCommand(cmd.Cmd):
         """Do nothing upon receiving an empty line."""
         pass
 
+
 def parse(arg):
-    """Function to parse args"""
+    """
+    a Function to parse args
+    """
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
     if curly_braces is None:
