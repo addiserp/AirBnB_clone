@@ -52,6 +52,11 @@
     margin: 2px 20px;   
     
 }
+
+.popover h2 {
+    font-size: 16px;
+}
+
 .popover {
     display: none;
     background-color: #FAFAFA;
@@ -69,9 +74,7 @@ div:hover > .popover {
     cursor: pointer;
     
   }
-.popover h2 {
-    font-size: 16px;
-}
+
 .popover li {
     margin: 10px 0px 5px 0px; 
     list-style: none;
@@ -80,11 +83,16 @@ div:hover > .popover {
 .filters .locations ul {
     padding: 0.5em 0 1em 1em;
   }
-  
+
+  .filters .amenities ul {
+    padding: 2em 0 2em 3em;
+  }
+
 .filters .locations li {
     margin: 0 0 0 5%;
     padding: 0.2em;
 }
-.filters .amenities ul {
-    padding: 2em 0 2em 3em;
-  }
+
+
+
+  
